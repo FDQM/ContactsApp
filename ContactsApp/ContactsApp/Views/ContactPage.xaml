@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace ContactsApp"
+             mc:Ignorable="d"
+             x:Name="ContactView"
+             NavigationPage.HasNavigationBar="True"
+             x:Class="ContactsApp.Views.ContactPage">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddContact" Order="Primary" Text="Add" Priority="0" Command="{Binding GoToAddContactCommand}" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Contacts}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding Path=BindingContext.DeleteElementCommand,
+                                       Source={x:Reference ContactView}}"
+                                      CommandParameter="{Binding .}"
+                                Text="Delete"
+                                      IsDestructive="True"/>
+                            <MenuItem Text="More" Command="{Binding Path=BindingContext.MoreOptionCommand,
+                                       Source={x:Reference ContactView}}"
+                                      CommandParameter="{Binding .}"/>
+                        </ViewCell.ContextActions>
+
+                        <StackLayout Orientation="Vertical" >
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                            <Label Text="{Binding Phone}" FontSize="13"/>
+                        </StackLayout>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
